@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:project2/Screen/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -9,15 +10,15 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // @override
-  // void initState() {
-  //   Future.delayed(Duration(seconds: 3)).then((value) {
-  //     Navigator.of(context).pushReplacement(MaterialPageRoute(
-  //       builder: (context) => HomeScreen(),
-  //     ));
-  //   });
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    Future.delayed(Duration(seconds: 2)).then((value) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => HomeScreen(),
+      ));
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,44 +29,66 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            //Be distinctive
+            const TextInSplashScreen(
+              text: "You alone\ncan appreciate your\naccomplishments",
+            ),
+            //icon
+            const IconSplashScreen(
+              image: "icon/distinction.png",
+            ),
+
             Container(
-              width: MediaQuery.of(context).size.width,
-              alignment: Alignment.center,
-              height: 80,
-              child: const Text(
-                "BAR & RESTARAUNT",
-                style: TextStyle(
-                  textBaseline: TextBaseline.ideographic,
-                  color: Color(0xfff0d17f),
-                  fontSize: 13,
-                ),
+              margin: EdgeInsets.only(top: 110),
+              child: SpinKitFadingCube(
+                color: Colors.yellow,
+                size: 35.0,
               ),
-            ),
-            Stack(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(
-                    top: 50,
-                  ),
-                  child: const Text(
-                    "Under\n \t\tthe\n Golden \n\t\t\t\t star",
-                    style: TextStyle(
-                      textBaseline: TextBaseline.ideographic,
-                      color: Colors.white,
-                      fontSize: 80,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.width/3, vertical: 200),
-                    child: Icon(
-                  Icons.star_half_rounded,
-                  color: Colors.yellow,
-                  size: 100,
-                ))
-              ],
-            ),
+            )
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class IconSplashScreen extends StatelessWidget {
+  const IconSplashScreen({
+    super.key,
+    required this.image,
+  });
+  final String image;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.only(
+          left: MediaQuery.of(context).size.width / 3.5,
+          top: 100,
+        ),
+        child: Image(
+          image: AssetImage("$image"),
+          width: 130,
+        ));
+  }
+}
+
+class TextInSplashScreen extends StatelessWidget {
+  const TextInSplashScreen({
+    super.key,
+    required this.text,
+  });
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 60),
+      padding: const EdgeInsets.only(left: 50),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 30,
         ),
       ),
     );
